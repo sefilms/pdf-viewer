@@ -14098,20 +14098,28 @@ if (document.readyState === "interactive" || document.readyState === "complete")
 ;
 //# sourceMappingURL=viewer.js.map
 
-// Fix for the Top-Bar Booklet Toggle
 document.addEventListener('webviewerloaded', function() {
     const bookletBtn = document.getElementById('spreadOdd');
     
+    // This will tell us if the script is actually finding your button
+    console.log("Booklet Button Found:", !!bookletBtn);
+    
     if (bookletBtn) {
         bookletBtn.addEventListener('click', function() {
-            // Access the internal PDF viewer
-            const viewer = PDFViewerApplication.pdfViewer;
+            console.log("Booklet button clicked!");
             
-            // Toggle spread mode (0 = None, 1 = Odd Spreads)
-            viewer.spreadMode = (viewer.spreadMode === 1) ? 0 : 1;
-            
-            // Toggle the visual state so the button looks "pressed"
-            bookletBtn.classList.toggle('toggled');
+            try {
+                const viewer = PDFViewerApplication.pdfViewer;
+                console.log("Current spreadMode:", viewer.spreadMode);
+                
+                // Toggle mode
+                viewer.spreadMode = (viewer.spreadMode === 1) ? 0 : 1;
+                
+                console.log("New spreadMode:", viewer.spreadMode);
+                bookletBtn.classList.toggle('toggled');
+            } catch (err) {
+                console.error("Error toggling spread mode:", err);
+            }
         });
     }
 });
