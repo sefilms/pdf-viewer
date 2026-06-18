@@ -14097,3 +14097,21 @@ if (document.readyState === "interactive" || document.readyState === "complete")
 /******/ })()
 ;
 //# sourceMappingURL=viewer.js.map
+
+// Fix for the Top-Bar Booklet Toggle
+document.addEventListener('webviewerloaded', function() {
+    const bookletBtn = document.getElementById('spreadOdd');
+    
+    if (bookletBtn) {
+        bookletBtn.addEventListener('click', function() {
+            // Access the internal PDF viewer
+            const viewer = PDFViewerApplication.pdfViewer;
+            
+            // Toggle spread mode (0 = None, 1 = Odd Spreads)
+            viewer.spreadMode = (viewer.spreadMode === 1) ? 0 : 1;
+            
+            // Toggle the visual state so the button looks "pressed"
+            bookletBtn.classList.toggle('toggled');
+        });
+    }
+});
