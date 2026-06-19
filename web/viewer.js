@@ -14097,25 +14097,3 @@ if (document.readyState === "interactive" || document.readyState === "complete")
 /******/ })()
 ;
 //# sourceMappingURL=viewer.js.map
-
-document.addEventListener('webviewerloaded', function() {
-    const bookletBtn = document.getElementById('spreadOdd');
-    
-    // This will tell us if the script is actually finding your button
-    console.log("Booklet Button Found:", !!bookletBtn);
-    
-    if (bookletBtn) {
-        bookletBtn.addEventListener('click', function() {
-            const viewer = PDFViewerApplication.pdfViewer;
-            
-            // Toggle spread mode (0 = None, 1 = Odd Spreads)
-            viewer.spreadMode = (viewer.spreadMode === 1) ? 0 : 1;
-            
-            // THE FIX: Force the viewer to repaint the pages with the new layout
-            viewer.updateAll();
-            
-            // Toggle the visual state
-            bookletBtn.classList.toggle('toggled');
-        });
-    }
-});
