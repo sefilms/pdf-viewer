@@ -223,13 +223,17 @@ See https://github.com/adobe-type-tools/cmap-resources
               </button>
             </div>
 
-            <!-- <div class="horizontalToolbarSeparator"></div> -->
+            <div class="horizontalToolbarSeparator"></div>
 
             <div id="spreadModeButtons" role="radiogroup">
               <button id="spreadNone" class="secondaryToolbarButton toggled" title="Do not join page spreads" tabindex="66" data-l10n-id="spread_none" role="radio" aria-checked="true">
                 <span data-l10n-id="spread_none_label">No Spreads</span>
               </button>
-              <!-- previous spot for "Odd Spreads" button -->
+
+              <button id="spreadOdd" class="secondaryToolbarButton spreadOdd" title="Join page spreads starting with odd-numbered pages" tabindex="66" data-l10n-id="spread_odd">
+                <span data-l10n-id="spread_odd_label">Odd Spreads</span>
+              </button>
+                
               <button id="spreadEven" class="secondaryToolbarButton" title="Join page spreads starting with even-numbered pages" tabindex="68" data-l10n-id="spread_even" role="radio" aria-checked="false">
                 <span data-l10n-id="spread_even_label">Even Spreads</span>
               </button>
@@ -269,10 +273,6 @@ See https://github.com/adobe-type-tools/cmap-resources
               <div id="toolbarViewerRight">
                 <button id="openFile" class="toolbarButton hiddenLargeView" title="Open File" tabindex="31" data-l10n-id="open_file">
                   <span data-l10n-id="open_file_label">Open</span>
-                </button>
-
-                <button id="spreadOdd" class="toolbarButton spreadOdd" title="Join page spreads starting with odd-numbered pages" tabindex="66" data-l10n-id="spread_odd">
-                  <span data-l10n-id="spread_odd_label">Booklet</span>
                 </button>
 
                 <button id="print" class="toolbarButton hiddenMediumView" title="Print" tabindex="32" data-l10n-id="print">
