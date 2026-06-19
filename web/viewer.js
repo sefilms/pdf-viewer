@@ -14106,20 +14106,16 @@ document.addEventListener('webviewerloaded', function() {
     
     if (bookletBtn) {
         bookletBtn.addEventListener('click', function() {
-            console.log("Booklet button clicked!");
+            const viewer = PDFViewerApplication.pdfViewer;
             
-            try {
-                const viewer = PDFViewerApplication.pdfViewer;
-                console.log("Current spreadMode:", viewer.spreadMode);
-                
-                // Toggle mode
-                viewer.spreadMode = (viewer.spreadMode === 1) ? 0 : 1;
-                
-                console.log("New spreadMode:", viewer.spreadMode);
-                bookletBtn.classList.toggle('toggled');
-            } catch (err) {
-                console.error("Error toggling spread mode:", err);
-            }
+            // Toggle spread mode (0 = None, 1 = Odd Spreads)
+            viewer.spreadMode = (viewer.spreadMode === 1) ? 0 : 1;
+            
+            // THE FIX: Force the viewer to repaint the pages with the new layout
+            viewer.updateAll();
+            
+            // Toggle the visual state
+            bookletBtn.classList.toggle('toggled');
         });
     }
 });
