@@ -1989,7 +1989,7 @@ function webViewerWheel(evt) {
     return;
   }
   const deltaMode = evt.deltaMode;
-  let scaleFactor = Math.exp(-evt.deltaY / 100);
+  let scaleFactor = Math.exp(-evt.deltaY / 300);
   const isBuiltInMac = false;
   const isPinchToZoom = evt.ctrlKey && !PDFViewerApplication._isCtrlKeyDown && deltaMode === WheelEvent.DOM_DELTA_PIXEL && evt.deltaX === 0 && (Math.abs(scaleFactor - 1) < 0.05 || isBuiltInMac) && evt.deltaZ === 0;
   if (isPinchToZoom || evt.ctrlKey && supportedMouseWheelZoomModifierKeys.ctrlKey || evt.metaKey && supportedMouseWheelZoomModifierKeys.metaKey) {
