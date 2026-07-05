@@ -248,10 +248,10 @@ See https://github.com/adobe-type-tools/cmap-resources
               </button>
             </div>
 
-            <!-- <div class="horizontalToolbarSeparator"></div> -->
+            <div class="horizontalToolbarSeparator"></div>
 
-            <button id="documentProperties" class="secondaryToolbarButton" style="display: none;" title="Document Properties…" tabindex="69" data-l10n-id="document_properties" aria-controls="documentPropertiesDialog">
-              <span data-l10n-id="document_properties_label">Document Properties…</span>
+            <button id="documentProperties" class="secondaryToolbarButton" style="display: block;" title="Document Info" tabindex="69" data-l10n-id="document_properties" aria-controls="documentPropertiesDialog">
+              <span data-l10n-id="document_properties_label">Document Info</span>
             </button>
           </div>
         </div>  <!-- secondaryToolbar -->
@@ -488,39 +488,43 @@ See https://github.com/adobe-type-tools/cmap-resources
     <div id="download" style="display: none;"></div>
 
     <script>
-      document.addEventListener('webviewerloaded', function() {
-        // Wait a brief moment to ensure the UI is fully rendered
-        setTimeout(() => {
-          const params = new URLSearchParams(window.location.search);
-          const details = document.getElementById('metadataDetails');
-          
-          if (!details) return;
-
-          const fields = ['formID', 'manufacturer', 'year', 'dealer'];
-          let html = '';
-          
-          fields.forEach(field => {
-            const val = params.get(field);
-            if (val) {
-              // Capitalize the first letter for clean UI
-              const label = field.charAt(0).toUpperCase() + field.slice(1);
-              html += `<p><strong>${label}:</strong> <br> ${decodeURIComponent(val)}</p>`;
+      document.addEventListener('DOMContentLoaded', function() {
+        const docPropsBtn = document.getElementById('documentProperties');
+        const dialog = document.getElementById('documentPropertiesDialog');
+    
+        docPropsBtn.addEventListener('click', () => {
+          // Small timeout to allow the native PDF.js dialog to render first
+          setTimeout(() => {
+            const params = new URLSearchParams(window.location.search);
+            
+            // Define fields in the exact order you requested
+            const customFields = [
+              { key: 'formID', label: 'Form ID' },
+              { key: 'manufacturer', label: 'Manufacturer' },
+              { key: 'year', label: 'Year Published' },
+              { key: 'dealer', label: 'CAT Dealer' },
+              { key: 'type', label: 'Document Type' },
+              { key: 'formFactor', label: 'Form Factor' }
+            ];
+    
+            // Create the HTML for your custom fields
+            let customHtml = '<div id="customMetadataContainer">';
+            customFields.forEach(field => {
+              const val = params.get(field.key);
+              customHtml += `
+                <div class="row" style="margin-bottom: 10px;">
+                  <span style="font-weight: bold; display: block;">${field.label}</span>
+                  <p style="margin: 0;">${val ? decodeURIComponent(val) : 'Unknown'}</p>
+                </div>`;
+            });
+            customHtml += '<div class="separator"></div></div>';
+    
+            // Check if we already injected it (to prevent duplicates on multiple clicks)
+            if (!document.getElementById('customMetadataContainer')) {
+              dialog.insertAdjacentHTML('afterbegin', customHtml);
             }
-          });
-          
-          if (html === '') {
-            html = '<p>No document information available.</p>';
-          }
-          
-          details.innerHTML = html;
-
-          // Hide the default thumbnail view
-          document.getElementById('thumbnailView').classList.add('hidden');
-          // Show your custom metadata view
-          document.getElementById('metadataPanel').classList.remove('hidden');
-          // Remove the "active" styling from the thumbnail button
-          document.getElementById('viewThumbnail').classList.remove('toggled');
-        }, 500);
+          }, 100);
+        });
       });
     </script>
   </body>
