@@ -2957,7 +2957,7 @@ a:is(.toolbarButton, .secondaryToolbarButton)[href="#"] {
           mask-image: var(--toolbarButton-viewThumbnail-icon);
 }
 
-/* #viewOutline::before {
+#viewOutline::before {
   -webkit-mask-image: var(--toolbarButton-viewOutline-icon);
           mask-image: var(--toolbarButton-viewOutline-icon);
   transform: scaleX(var(--dir-factor));
@@ -2966,7 +2966,7 @@ a:is(.toolbarButton, .secondaryToolbarButton)[href="#"] {
 #viewAttachments::before {
   -webkit-mask-image: var(--toolbarButton-viewAttachments-icon);
           mask-image: var(--toolbarButton-viewAttachments-icon);
-} */
+}
 
 #viewLayers::before {
   -webkit-mask-image: var(--toolbarButton-viewLayers-icon);
@@ -3168,8 +3168,8 @@ a:is(.toolbarButton, .secondaryToolbarButton)[href="#"] {
 }
 
 #thumbnailView,
-/*#outlineView,
-#attachmentsView,*/
+#outlineView,
+#attachmentsView,
 #layersView {
   position: absolute;
   width: calc(100% - 8px);
