@@ -3532,3 +3532,9 @@ dialog :link {
 #editorInk, #editorStamp {
     display: none !important;
 }
+
+/* --- CUSTOM OVERRIDES --- */
+#viewOutline, 
+#viewAttachments {
+    display: none !important;
+}
