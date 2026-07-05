@@ -77,6 +77,15 @@ See https://github.com/adobe-type-tools/cmap-resources
           </div>
           <div id="layersView" class="hidden">
           </div>
+            <!-- CUSTOM METADATA PANEL -->
+            <div id="metadataPanel" class="hidden">
+              <div class="metadata-content" style="padding: 15px; color: #fff;">
+                <h3 style="margin-top: 0; border-bottom: 1px solid #555; padding-bottom: 5px;">Document Info</h3>
+                <div id="metadataDetails">
+                  <!-- Metadata will load here -->
+                </div>
+              </div>
+            </div>
         </div>
         <div id="sidebarResizer"></div>
       </div>  <!-- sidebarContainer -->
@@ -477,5 +486,42 @@ See https://github.com/adobe-type-tools/cmap-resources
     <div id="openFile" style="display: none;"></div>
     <div id="print" style="display: none;"></div>
     <div id="download" style="display: none;"></div>
+
+    <script>
+      document.addEventListener('webviewerloaded', function() {
+        // Wait a brief moment to ensure the UI is fully rendered
+        setTimeout(() => {
+          const params = new URLSearchParams(window.location.search);
+          const details = document.getElementById('metadataDetails');
+          
+          if (!details) return;
+
+          const fields = ['formID', 'manufacturer', 'year', 'dealer'];
+          let html = '';
+          
+          fields.forEach(field => {
+            const val = params.get(field);
+            if (val) {
+              // Capitalize the first letter for clean UI
+              const label = field.charAt(0).toUpperCase() + field.slice(1);
+              html += `<p><strong>${label}:</strong> <br> ${decodeURIComponent(val)}</p>`;
+            }
+          });
+          
+          if (html === '') {
+            html = '<p>No document information available.</p>';
+          }
+          
+          details.innerHTML = html;
+
+          // Hide the default thumbnail view
+          document.getElementById('thumbnailView').classList.add('hidden');
+          // Show your custom metadata view
+          document.getElementById('metadataPanel').classList.remove('hidden');
+          // Remove the "active" styling from the thumbnail button
+          document.getElementById('viewThumbnail').classList.remove('toggled');
+        }, 500);
+      });
+    </script>
   </body>
 </html>
