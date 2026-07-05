@@ -3538,3 +3538,31 @@ dialog :link {
 #viewAttachments {
     display: none !important;
 }
+
+/* Style the custom Metadata Panel */
+#metadataPanel {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #323639; /* Matches the dark sidebar theme */
+}
+
+/* Ensure the 'hidden' class works properly */
+#metadataPanel.hidden {
+    display: none !important;
+}
+
+/* Format the text inside the doc info panel */
+.metadata-content p {
+    margin-bottom: 15px;
+    line-height: 1.5;
+    font-size: 14px;
+    color: #f2f2f2;
+}
+
+.metadata-content strong {
+    color: #ffffff;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
