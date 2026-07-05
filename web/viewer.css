@@ -3539,31 +3539,36 @@ dialog :link {
     display: none !important;
 }
 
-/* --- CUSTOM METADATA STYLING --- */
-
-/* Style the container for our custom fields */
+/* --- FIX CUSTOM METADATA LOOK AND FEEL --- */
 #customMetadataContainer {
     margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #ddd; /* A subtle separator line */
 }
 
-/* Style the rows */
+/* Use the same row structure as the native PDF.js properties */
 #customMetadataContainer .row {
-    margin-bottom: 8px; /* Slightly more breathing room */
+    margin-bottom: 2px; /* Matching PDF.js row spacing */
+    display: flex;
+    flex-direction: column;
 }
 
-/* Style the Data Field Titles (Bold) */
+/* Matching the native Label/Field text style */
 #customMetadataContainer span {
     font-weight: bold;
-    font-size: 12px;
-    color: #333;
-    display: block;
+    color: #fff; /* Native PDF.js text color */
+    margin-bottom: 2px;
 }
 
-/* Style the Data Field Values (Regular) */
 #customMetadataContainer p {
-    margin: 0;
-    font-size: 13px;
-    color: #555;
+    margin: 0 0 10px 0;
+    color: #fff; /* Matches native text */
+}
+
+/* --- HIDE UNWANTED NATIVE FIELDS --- */
+/* Targeting the containers directly to hide them */
+#producerField, #producerLabel,
+#versionField, #versionLabel,
+#pageCountField, #pageCountLabel,
+#pageSizeField, #pageSizeLabel,
+#linearizedField, #linearizedLabel {
+    display: none !important;
 }
