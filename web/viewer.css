@@ -3572,3 +3572,28 @@ dialog :link {
 #linearizedField, #linearizedLabel {
     display: none !important;
 }
+
+/* Ensure the dialog hides the native fields regardless of JS */
+dialog#documentPropertiesDialog .row:has(#producerField),
+dialog#documentPropertiesDialog .row:has(#producerLabel),
+dialog#documentPropertiesDialog .row:has(#versionField),
+dialog#documentPropertiesDialog .row:has(#versionLabel),
+dialog#documentPropertiesDialog .row:has(#pageCountField),
+dialog#documentPropertiesDialog .row:has(#pageCountLabel),
+dialog#documentPropertiesDialog .row:has(#pageSizeField),
+dialog#documentPropertiesDialog .row:has(#pageSizeLabel),
+dialog#documentPropertiesDialog .row:has(#linearizedField),
+dialog#documentPropertiesDialog .row:has(#linearizedLabel) {
+    display: none !important;
+}
+
+/* Force our custom colors using strong specificity */
+dialog#documentPropertiesDialog #customMetadataContainer .custom-label {
+    font-weight: bold !important;
+    color: #fff !important; 
+    display: block;
+}
+dialog#documentPropertiesDialog #customMetadataContainer .custom-value {
+    color: #fff !important;
+    margin: 0 0 10px 0 !important;
+}
