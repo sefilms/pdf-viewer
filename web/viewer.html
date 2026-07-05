@@ -488,15 +488,15 @@ See https://github.com/adobe-type-tools/cmap-resources
     <div id="download" style="display: none;"></div>
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      window.addEventListener('localized', function() {
         const docPropsBtn = document.getElementById('documentProperties');
         const dialog = document.getElementById('documentPropertiesDialog');
-        
-        docPropsBtn.addEventListener('click', () => {
-          // Small timeout to allow the native PDF.js dialog to render first
-          setTimeout(() => {
+    
+        // Only attach the listener if the button exists
+        if (docPropsBtn) {
+          docPropsBtn.addEventListener('click', () => {
+            // We inject the data immediately when the user clicks the button
             const params = new URLSearchParams(window.location.search);
-            
             const customFields = [
               { key: 'formID', label: 'Form ID' },
               { key: 'manufacturer', label: 'Manufacturer' },
@@ -506,23 +506,22 @@ See https://github.com/adobe-type-tools/cmap-resources
               { key: 'formFactor', label: 'Form Factor' }
             ];
     
-            let customHtml = '<div id="customMetadataContainer">';
-            customFields.forEach(field => {
-              const val = params.get(field.key);
-              customHtml += `
-                <div class="row">
-                  <span>${field.label}</span>
-                  <p>${val ? decodeURIComponent(val) : 'Unknown'}</p>
-                </div>`;
-            });
-            customHtml += '<div class="separator"></div></div>';
-    
-            // Check if we already injected it
+            // Check if already injected to avoid duplicates
             if (!document.getElementById('customMetadataContainer')) {
+              let customHtml = '<div id="customMetadataContainer">';
+              customFields.forEach(field => {
+                const val = params.get(field.key);
+                customHtml += `
+                  <div class="row">
+                    <span class="custom-label">${field.label}</span>
+                    <p class="custom-value">${val ? decodeURIComponent(val) : 'Unknown'}</p>
+                  </div>`;
+              });
+              customHtml += '<div class="separator"></div></div>';
               dialog.insertAdjacentHTML('afterbegin', customHtml);
             }
-          }, 100);
-        });
+          });
+        }
       });
     </script>
   </body>\
