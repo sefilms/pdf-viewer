@@ -491,13 +491,12 @@ See https://github.com/adobe-type-tools/cmap-resources
       document.addEventListener('DOMContentLoaded', function() {
         const docPropsBtn = document.getElementById('documentProperties');
         const dialog = document.getElementById('documentPropertiesDialog');
-    
+        
         docPropsBtn.addEventListener('click', () => {
           // Small timeout to allow the native PDF.js dialog to render first
           setTimeout(() => {
             const params = new URLSearchParams(window.location.search);
             
-            // Define fields in the exact order you requested
             const customFields = [
               { key: 'formID', label: 'Form ID' },
               { key: 'manufacturer', label: 'Manufacturer' },
@@ -507,19 +506,18 @@ See https://github.com/adobe-type-tools/cmap-resources
               { key: 'formFactor', label: 'Form Factor' }
             ];
     
-            // Create the HTML for your custom fields
             let customHtml = '<div id="customMetadataContainer">';
             customFields.forEach(field => {
               const val = params.get(field.key);
               customHtml += `
-                <div class="row" style="margin-bottom: 10px;">
-                  <span style="font-weight: bold; display: block;">${field.label}</span>
-                  <p style="margin: 0;">${val ? decodeURIComponent(val) : 'Unknown'}</p>
+                <div class="row">
+                  <span>${field.label}</span>
+                  <p>${val ? decodeURIComponent(val) : 'Unknown'}</p>
                 </div>`;
             });
             customHtml += '<div class="separator"></div></div>';
     
-            // Check if we already injected it (to prevent duplicates on multiple clicks)
+            // Check if we already injected it
             if (!document.getElementById('customMetadataContainer')) {
               dialog.insertAdjacentHTML('afterbegin', customHtml);
             }
