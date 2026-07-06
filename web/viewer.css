@@ -2009,7 +2009,7 @@
   --toolbar-icon-bg-color: rgba(0, 0, 0, 1);
   --toolbar-icon-hover-bg-color: rgba(0, 0, 0, 1);
 
-  --sidebar-narrow-bg-color: rgba(212, 212, 215, 0.9);
+  --sidebar-narrow-bg-color: rgba(212, 212, 215, 1);
   --sidebar-toolbar-bg-color: rgba(245, 246, 247, 1);
   --toolbar-bg-color: rgba(249, 249, 250, 1);
   --toolbar-border-color: rgba(184, 184, 184, 1);
