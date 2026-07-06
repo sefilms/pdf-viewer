@@ -2064,7 +2064,7 @@
   --toolbarButton-openFile-icon: url(images/toolbarButton-openFile.svg);
   --toolbarButton-download-icon: url(images/toolbarButton-download.svg);
   --toolbarButton-bookmark-icon: url(images/toolbarButton-bookmark.svg);
-  --toolbarButton-viewThumbnail-icon: url(images/toolbarButton-viewThumbnail.svg);
+  /* --toolbarButton-viewThumbnail-icon: url(images/toolbarButton-viewThumbnail.svg); */
   --toolbarButton-viewOutline-icon: url(images/toolbarButton-viewOutline.svg);
   --toolbarButton-viewAttachments-icon: url(images/toolbarButton-viewAttachments.svg);
   --toolbarButton-viewLayers-icon: url(images/toolbarButton-viewLayers.svg);
