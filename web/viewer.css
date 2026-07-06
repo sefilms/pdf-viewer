@@ -2321,13 +2321,7 @@ body {
   width: 100%;
 }
 
-/* #toolbarSidebar {
-  width: 100%;
-  height: 32px;
-  background-color: var(--sidebar-toolbar-bg-color);
-  box-shadow: var(--toolbarSidebar-box-shadow);
-  border-bottom: var(--toolbarSidebar-border-bottom);
-} */
+/* toolbar sidebar removed */
 
 #sidebarResizer {
   position: absolute;
