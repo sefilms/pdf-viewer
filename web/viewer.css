@@ -2946,10 +2946,7 @@ a:is(.toolbarButton, .secondaryToolbarButton)[href="#"] {
           mask-image: var(--toolbarButton-bookmark-icon);
 }
 
-#viewThumbnail::before {
-  -webkit-mask-image: var(--toolbarButton-viewThumbnail-icon);
-          mask-image: var(--toolbarButton-viewThumbnail-icon);
-}
+/* view thumbnail removed */
 
 #viewOutline::before {
   -webkit-mask-image: var(--toolbarButton-viewOutline-icon);
