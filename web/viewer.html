@@ -488,5 +488,27 @@ See https://github.com/adobe-type-tools/cmap-resources
         });
       });
     </script>
+
+    <script>
+      // Block right-click
+      document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+      });
+    
+      // Block common save/print/devtools shortcuts
+      document.addEventListener('keydown', function(e) {
+        const key = e.key.toLowerCase();
+    
+        if ((e.ctrlKey || e.metaKey) && key === 's') e.preventDefault();
+        if ((e.ctrlKey || e.metaKey) && key === 'p') e.preventDefault();
+        if ((e.ctrlKey || e.metaKey) && key === 'u') e.preventDefault();
+        if (
+          e.key === 'F12' ||
+          ((e.ctrlKey || e.metaKey) && e.shiftKey && (key === 'i' || key === 'j'))
+        ) {
+          e.preventDefault();
+        }
+      });
+    </script>
   </body>
 </html>
