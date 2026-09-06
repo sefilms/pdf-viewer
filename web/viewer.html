@@ -513,16 +513,16 @@ See https://github.com/adobe-type-tools/cmap-resources
     </script>
     <script>
       (function() {
-        // 1. Prevent Right-Click Everywhere
+        // 1. Prevent Right-Click Context Menu
         window.addEventListener('contextmenu', function(e) {
           e.preventDefault();
           e.stopPropagation();
           return false;
         }, true);
     
-        // 2. Intercept Keyboard Shortcuts Early in Capture Phase
-        window.addEventListener('keydown', function(e) {
-          const key = e.key.toLowerCase();
+        // 2. High-Priority Shortcut Blocking Function
+        function blockShortcuts(e) {
+          const key = (e.key || '').toLowerCase();
           const isCmdOrCtrl = e.ctrlKey || e.metaKey;
     
           // Block Ctrl+S / Cmd+S (Save)
@@ -535,7 +535,7 @@ See https://github.com/adobe-type-tools/cmap-resources
             return false;
           }
     
-          // Block Developer Tools (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C)
+          // Block Developer Tools (F12, Ctrl+Shift+I/J/C)
           if (
             e.key === 'F12' ||
             (isCmdOrCtrl && e.shiftKey && (key === 'i' || key === 'j' || key === 'c'))
@@ -544,7 +544,17 @@ See https://github.com/adobe-type-tools/cmap-resources
             e.stopPropagation();
             return false;
           }
-        }, true);
+        }
+    
+        // Attach listener to BOTH window and document during the capture phase
+        window.addEventListener('keydown', blockShortcuts, true);
+        document.addEventListener('keydown', blockShortcuts, true);
+    
+        // Attach to the viewer container if present
+        const viewerContainer = document.getElementById('viewerContainer');
+        if (viewerContainer) {
+          viewerContainer.addEventListener('keydown', blockShortcuts, true);
+        }
       })();
     </script>
   </body>
