@@ -33,7 +33,30 @@ See https://github.com/adobe-type-tools/cmap-resources
 
     <link rel="stylesheet" href="viewer.css">
 
-  
+  <style>
+      /* Prevent manual highlighting/copying on UI elements, but preserve PDF text search */
+      #toolbarContainer, #sidebarContainer, .pdfViewer .page {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    
+      /* Keep textLayer functional for PDF.js internal search & rendering */
+      .textLayer {
+        -webkit-user-select: text !important;
+        -moz-user-select: text !important;
+        -ms-user-select: text !important;
+        user-select: text !important;
+      }
+    
+      /* Prevent browser print output */
+      @media print {
+        html, body, #outerContainer {
+          display: none !important;
+        }
+      }
+    </style>
   </head>
 
   <body tabindex="1">
@@ -488,27 +511,41 @@ See https://github.com/adobe-type-tools/cmap-resources
         });
       });
     </script>
-
     <script>
-      // Block right-click
-      document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-      });
-    
-      // Block common save/print/devtools shortcuts
-      document.addEventListener('keydown', function(e) {
-        const key = e.key.toLowerCase();
-    
-        if ((e.ctrlKey || e.metaKey) && key === 's') e.preventDefault();
-        if ((e.ctrlKey || e.metaKey) && key === 'p') e.preventDefault();
-        if ((e.ctrlKey || e.metaKey) && key === 'u') e.preventDefault();
-        if (
-          e.key === 'F12' ||
-          ((e.ctrlKey || e.metaKey) && e.shiftKey && (key === 'i' || key === 'j'))
-        ) {
+      (function() {
+        // 1. Prevent Right-Click Everywhere
+        window.addEventListener('contextmenu', function(e) {
           e.preventDefault();
-        }
-      });
+          e.stopPropagation();
+          return false;
+        }, true);
+    
+        // 2. Intercept Keyboard Shortcuts Early in Capture Phase
+        window.addEventListener('keydown', function(e) {
+          const key = e.key.toLowerCase();
+          const isCmdOrCtrl = e.ctrlKey || e.metaKey;
+    
+          // Block Ctrl+S / Cmd+S (Save)
+          // Block Ctrl+P / Cmd+P (Print)
+          // Block Ctrl+U / Cmd+U (View Source)
+          // Block Ctrl+A / Cmd+A (Select All)
+          if (isCmdOrCtrl && (key === 's' || key === 'p' || key === 'u' || key === 'a')) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+    
+          // Block Developer Tools (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C)
+          if (
+            e.key === 'F12' ||
+            (isCmdOrCtrl && e.shiftKey && (key === 'i' || key === 'j' || key === 'c'))
+          ) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+        }, true);
+      })();
     </script>
   </body>
 </html>
