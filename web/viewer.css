@@ -3518,8 +3518,9 @@ dialog :link {
   }
 }
 
-#openFile, #print, #download, #viewBookmark, #viewLayers, 
-#editorModeButtons, #editorModeSeparator, #editorFreeText, 
+#openFile, #print, #download, #viewBookmark, #viewLayers,
+#secondaryOpenFile, #secondaryPrint, #secondaryDownload, #secondaryViewBookmark,
+#editorModeButtons, #editorModeSeparator, #editorFreeText,
 #editorInk, #editorStamp {
     display: none !important;
 }
