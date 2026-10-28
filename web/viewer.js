@@ -1688,7 +1688,7 @@ function webViewerPageRendered({
   pageNumber,
   error
 }) {
-  if (evt.pageNumber === 1) {
+  if (pageNumber === 1) {
     window.parent.postMessage('pdf-fully-rendered', '*');
   }
   if (pageNumber === PDFViewerApplication.page) {
