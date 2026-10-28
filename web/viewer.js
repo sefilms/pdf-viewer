@@ -14084,9 +14084,10 @@ function webViewerLoad() {
     // console.error(`webviewerloaded: ${ex}`);
     document.dispatchEvent(event);
   }
-  _app.PDFViewerApplication.run(config);
-  _app.PDFViewerApplication.eventBus.on('pagesloaded', function () {
-    window.parent.postMessage('pdf-fully-rendered', '*');
+  _app.PDFViewerApplication.initializedPromise.then(() => {
+    _app.PDFViewerApplication.eventBus.on('pagesinit', () => {
+      window.parent.postMessage('pdf-fully-rendered', '*');
+    });
   });
 }
 document.blockUnblockOnload?.(true);
