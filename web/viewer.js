@@ -1688,6 +1688,9 @@ function webViewerPageRendered({
   pageNumber,
   error
 }) {
+  if (pageNumber === 1) {
+    window.parent.postMessage('pdf-fully-rendered', '*');
+  }
   if (pageNumber === PDFViewerApplication.page) {
     PDFViewerApplication.toolbar?.updateLoadingIndicatorState(false);
   }
@@ -14097,8 +14100,10 @@ function webViewerLoad() {
 }
 
 function setupEventListeners() {
-  _app.PDFViewerApplication.eventBus.on('pagesinit', function () {
-    window.parent.postMessage('pdf-fully-rendered', '*');
+  _app.PDFViewerApplication.eventBus.on('pagerendered', function (event) {
+    if (event.pageNumber === 1) {
+      window.parent.postMessage('pdf-fully-rendered', '*');
+    }
   });
 }
 
