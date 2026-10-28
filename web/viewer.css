@@ -2061,10 +2061,10 @@
   --toolbarButton-zoomIn-icon: url(images/toolbarButton-zoomIn.svg);
   --toolbarButton-presentationMode-icon: url(images/toolbarButton-presentationMode.svg);
   --toolbarButton-print-icon: url(images/toolbarButton-print.svg);
-  --toolbarButton-openFile-icon: url(images/toolbarButton-openFile.svg);
+  /* --toolbarButton-openFile-icon: url(images/toolbarButton-openFile.svg);
   --toolbarButton-download-icon: url(images/toolbarButton-download.svg);
   --toolbarButton-bookmark-icon: url(images/toolbarButton-bookmark.svg);
-  /* --toolbarButton-viewThumbnail-icon: url(images/toolbarButton-viewThumbnail.svg); */
+  --toolbarButton-viewThumbnail-icon: url(images/toolbarButton-viewThumbnail.svg); */
   --toolbarButton-viewOutline-icon: url(images/toolbarButton-viewOutline.svg);
   --toolbarButton-viewAttachments-icon: url(images/toolbarButton-viewAttachments.svg);
   --toolbarButton-viewLayers-icon: url(images/toolbarButton-viewLayers.svg);
@@ -2916,7 +2916,7 @@ body {
           mask-image: var(--toolbarButton-editorStamp-icon);
 }
 
-#print::before,
+/* #print::before,
 #secondaryPrint::before {
   -webkit-mask-image: var(--toolbarButton-print-icon);
           mask-image: var(--toolbarButton-print-icon);
@@ -2930,7 +2930,7 @@ body {
 :is(#download, #secondaryDownload)::before {
   -webkit-mask-image: var(--toolbarButton-download-icon);
           mask-image: var(--toolbarButton-download-icon);
-}
+} */
 
 a.secondaryToolbarButton {
   padding-top: 5px;
