@@ -14084,12 +14084,24 @@ function webViewerLoad() {
     // console.error(`webviewerloaded: ${ex}`);
     document.dispatchEvent(event);
   }
-  _app.PDFViewerApplication.initializedPromise.then(() => {
-    _app.PDFViewerApplication.eventBus.on('pagesinit', () => {
-      window.parent.postMessage('pdf-fully-rendered', '*');
-    });
+  
+  // 1. Boot up the application first
+  _app.PDFViewerApplication.run(config);
+
+  // 2. Safely hook into the event bus once initialized
+  if (_app.PDFViewerApplication.initialized) {
+    setupEventListeners();
+  } else {
+    _app.PDFViewerApplication.initializedPromise.then(setupEventListeners);
+  }
+}
+
+function setupEventListeners() {
+  _app.PDFViewerApplication.eventBus.on('pagesinit', function () {
+    window.parent.postMessage('pdf-fully-rendered', '*');
   });
 }
+
 document.blockUnblockOnload?.(true);
 if (document.readyState === "interactive" || document.readyState === "complete") {
   webViewerLoad();
