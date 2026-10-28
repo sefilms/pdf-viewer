@@ -1688,9 +1688,6 @@ function webViewerPageRendered({
   pageNumber,
   error
 }) {
-  if (pageNumber === 1) {
-    window.parent.postMessage('pdf-fully-rendered', '*');
-  }
   if (pageNumber === PDFViewerApplication.page) {
     PDFViewerApplication.toolbar?.updateLoadingIndicatorState(false);
   }
@@ -14088,6 +14085,9 @@ function webViewerLoad() {
     document.dispatchEvent(event);
   }
   _app.PDFViewerApplication.run(config);
+  _app.PDFViewerApplication.eventBus.on('pagesloaded', function () {
+    window.parent.postMessage('pdf-fully-rendered', '*');
+  });
 }
 document.blockUnblockOnload?.(true);
 if (document.readyState === "interactive" || document.readyState === "complete") {
